@@ -18,7 +18,7 @@ echo "1" > /proc/sys/net/ipv4/conf/eth0/forwarding
 
 ### Redirect incomming traffic to local port
 ```bash
-iptables -t nat -A PREROUTING -p udp --dport 164 -j REDIRECT --to-ports 1164
+iptables -t nat -I PREROUTING --src 0/0 -p udp --dport 514 -j REDIRECT --to-ports 1516
 ```
 ### Redirecting locally generated packets
 ```bash
