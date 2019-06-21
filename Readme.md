@@ -26,10 +26,22 @@ iptables -t nat -I OUTPUT --src 0/0 --dst 127.0.0.1. -p tcp --dport 80 -j REDIRE
 ```
 *you need CONFIG_IP_NF_NAT_LOCAL=y in your kernel. Without it this rule can be inserted, but will have no effect*
 
-##Moving lattest 3 commit to a new branch
+## Moving lattest 3 commit to a new branch
 
 ```bash
 git checkout -b newbranch # switch to a new branch
 git branch -f master HEAD~3 # make master point to some older commit
 ```
 for previous commit you can only use `HEAD~`
+
+## git cherry-pick
+
+```bash
+git checkout master
+git cherry-pick commit-1 commit-2 ...
+```
+if there where any confilicts, resolve them and then do:
+```bash
+git cherry-pick --continue
+```
+[from](https://www.previousnext.com.au/blog/intro-cherry-picking-git)
