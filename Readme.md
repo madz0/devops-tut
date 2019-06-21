@@ -45,3 +45,18 @@ if there where any confilicts, resolve them and then do:
 git cherry-pick --continue
 ```
 [from](https://www.previousnext.com.au/blog/intro-cherry-picking-git)
+
+## git rebase
+
+```bash
+git checkout source
+git rebase master
+git checkout master
+git merge source
+```
+or without needing to check out source target first:
+```bash
+git rebase master server
+git checkout master
+git merge source
+```
