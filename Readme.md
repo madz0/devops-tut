@@ -60,3 +60,17 @@ git rebase master server
 git checkout master
 git merge source
 ```
+
+## Maven broken local repository
+
+If `mvn clean dependency:tree` is ok but `mvn clean compile` fails and you beleive you've added all dependencies in the pom,
+then chanses are, you have a broken local repository. 
+
+To fix do:
+
+`mvn dependency:purge-local-repository`
+
+If that does not work, try to remove `~/.m2/repository/some/package`
+
+Note: To find out where the local repository is, in eclipse expand Maven Dependencies and right click on one of t
+he libraries and go to build path
