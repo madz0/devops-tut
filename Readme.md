@@ -74,3 +74,62 @@ If that does not work, try to remove `~/.m2/repository/some/package`
 
 Note: To find out where the local repository is, in eclipse expand Maven Dependencies and right click on one of t
 he libraries and go to build path
+
+## Maven java version
+
+```
+<properties>
+     <java.version>1.8</java.version>
+</properties>
+```
+Is only specific to spring boot.
+
+```
+<plugins>
+    <plugin>    
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+        </configuration>
+    </plugin>
+</plugins>
+```
+or
+```
+<properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+</properties>
+```
+Are standard and equivalent way to specify java vesion for maven compiler plugin
+
+The maven-compiler-plugin 3.6 and later versions provide a new way :
+```
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.0</version>
+    <configuration>
+        <release>9</release>
+    </configuration>
+</plugin>
+```
+You could also declare just :
+```
+<properties>
+    <maven.compiler.release>9</maven.compiler.release>
+</properties>
+```
+The Maven `release` argument conveys  release : a new JVM standard option that we could pass from Java 9 :
+```
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.0</version>
+    <configuration>
+        <release>9</release>
+    </configuration>
+</plugin>
+```
+[From](https://stackoverflow.com/a/38883073/2556354)
