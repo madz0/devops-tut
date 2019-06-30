@@ -133,3 +133,13 @@ The Maven `release` argument conveys  release : a new JVM standard option that w
 </plugin>
 ```
 [From](https://stackoverflow.com/a/38883073/2556354)
+
+## Git discard changes to a file
+
+```bash
+git checkout -- <file>
+```
+For a specificrevision:
+```bash
+git checkout <commit_hash> -- <file>
+```
