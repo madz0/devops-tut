@@ -143,3 +143,9 @@ For a specificrevision:
 ```bash
 git checkout <commit_hash> -- <file>
 ```
+
+## See diff after changing a file before committing
+
+```bash
+git diff path/to/file
+```
