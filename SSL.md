@@ -510,7 +510,7 @@ Note that the Common Name cannot be the same as either your root or intermediate
 ```bash
 openssl req -config openssl.conf -key private/www.example.com.key.pem -new -sha256 -out csr/www.example.com.csr.pem
 ```
-Enter pass phrase for www.example.com.key.pem: secretpassword
+`Enter pass phrase for www.example.com.key.pem: secretpassword`
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
 ```
@@ -536,7 +536,7 @@ openssl ca -config intermediate/openssl.conf -extensions server_cert -days 375 -
 
 chmod 444 intermediate/certs/www.example.com.cert.pem
 ```
-The intermediate/index.txt file should contain a line referring to this new certificate.
+The `intermediate/index.txt` file should contain a line referring to this new certificate.
 ```
 V 160420124233Z 1000 unknown ... /CN=www.example.com
 ```
