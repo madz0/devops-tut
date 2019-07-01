@@ -245,8 +245,6 @@ Create the root key (ca.key.pem) and keep it absolutely secure. Anyone in posses
 certificates. 
 Encrypt the root key with AES 256-bit encryption and a strong password.
 
-*Note*
-
 *Use 4096 bits for all root and intermediate certificate authority keys. You’ll still be able to sign server and client certificates of a shorter length.*
 
 ```bash
@@ -264,16 +262,11 @@ Create the root certificate
 Use the root key `ca.key.pem` to create a root certificate `ca.cert.pem`. Give the root certificate a long expiry date, 
 such as twenty years. Once the root certificate expires, all certificates signed by the CA become invalid.
 
-*Note*
-
 *Whenever you use the `req` tool, you must specify a configuration file to use with the `-config` option, 
-otherwise `OpenSSL` will default to `/etc/pki/tls/openssl.conf`.
+otherwise `OpenSSL` will default to `/etc/pki/tls/openssl.conf`*
 
 ```bash
-openssl req -config openssl.conf \
-      -key private/ca.key.pem \
-      -new -x509 -days 7300 -sha256 -extensions v3_ca \
-      -out certs/ca.cert.pem
+openssl req -config openssl.conf -key private/ca.key.pem -new -x509 -days 7300 -sha256 -extensions v3_ca -out certs/ca.cert.pem
 ```
 
 Enter pass phrase for ca.key.pem: secretpassword
@@ -387,8 +380,7 @@ Create the intermediate key (intermediate.key.pem). Encrypt the intermediate key
 
 ```bash
 cd ..
-openssl genrsa -aes256 \
-      -out intermediate/private/intermediate.key.pem 4096
+openssl genrsa -aes256 -out intermediate/private/intermediate.key.pem 4096
 ```
 Enter pass phrase for intermediate.key.pem: secretpassword
 Verifying - Enter pass phrase for intermediate.key.pem: secretpassword
@@ -404,9 +396,7 @@ The details should generally match the root CA. The Common Name, however, must b
 *Make sure you specify the intermediate CA configuration file (intermediate/openssl.conf).*
 
 ```bash
-# openssl req -config intermediate/openssl.conf -new -sha256 \
-      -key intermediate/private/intermediate.key.pem \
-      -out intermediate/csr/intermediate.csr.pem
+# openssl req -config intermediate/openssl.conf -new -sha256 -key intermediate/private/intermediate.key.pem -out intermediate/csr/intermediate.csr.pem
 ```
 
 Enter pass phrase for intermediate.key.pem: secretpassword
@@ -425,14 +415,11 @@ To create an intermediate certificate, use the root CA with the v3_intermediate_
 The intermediate certificate should be valid for a shorter period than the root certificate. Ten years would be reasonable.
 
 -------------------
-*This time, specify the root CA configuration file (openssl.conf).*
+This time, specify the root CA configuration file (openssl.conf).
 -------------------
 
 ```bash
-openssl ca -config openssl.conf -extensions v3_intermediate_ca \
-      -days 3650 -notext -md sha256 \
-      -in intermediate/csr/intermediate.csr.pem \
-      -out intermediate/certs/intermediate.cert.pem
+openssl ca -config openssl.conf -extensions v3_intermediate_ca -days 3650 -notext -md sha256 -in -out intermediate/certs/intermediate.cert.pem
 ```
 
 Enter pass phrase for ca.key.pem: secretpassword
@@ -453,15 +440,13 @@ Verify the intermediate certificate
 As we did for the root certificate, check that the details of the intermediate certificate are correct.
 
 ```bash
-openssl x509 -noout -text \
-      -in intermediate/certs/intermediate.cert.pem
+openssl x509 -noout -text -in intermediate/certs/intermediate.cert.pem
 ```
 
 Verify the intermediate certificate against the root certificate. An OK indicates that the chain of trust is intact.
 
 ```bash
-openssl verify -CAfile certs/ca.cert.pem \
-      intermediate/certs/intermediate.cert.pem
+openssl verify -CAfile certs/ca.cert.pem intermediate/certs/intermediate.cert.pem
 ```
 intermediate.cert.pem: OK
 
@@ -522,9 +507,7 @@ whereas for client certificates it can be any unique identifier (eg, an e-mail a
 Note that the Common Name cannot be the same as either your root or intermediate certificate.
 
 ```bash
-openssl req -config openssl.conf \
-      -key private/www.example.com.key.pem \
-      -new -sha256 -out csr/www.example.com.csr.pem
+openssl req -config openssl.conf -key private/www.example.com.key.pem -new -sha256 -out csr/www.example.com.csr.pem
 ```
 Enter pass phrase for www.example.com.key.pem: secretpassword
 You are about to be asked to enter information that will be incorporated
@@ -548,10 +531,8 @@ use the usr_cert extension. Certificates are usually given a validity of one yea
 few days extra for convenience.
 
 ```bash
-openssl ca -config intermediate/openssl.conf \
-      -extensions server_cert -days 375 -notext -md sha256 \
-      -in intermediate/csr/www.example.com.csr.pem \
-      -out intermediate/certs/www.example.com.cert.pem
+openssl ca -config intermediate/openssl.conf -extensions server_cert -days 375 -notext -md sha256 -in intermediate/csr/www.example.com.csr.pem -out intermediate/certs/www.example.com.cert.pem
+
 chmod 444 intermediate/certs/www.example.com.cert.pem
 ```
 The intermediate/index.txt file should contain a line referring to this new certificate.
@@ -607,4 +588,4 @@ Use the CA certificate chain file we created earlier (ca-chain.cert.pem) to veri
 openssl verify -CAfile intermediate/certs/ca-chain.cert.pem \
       intermediate/certs/www.example.com.cert.pem
 ```
-www.example.com.cert.pem: OK                
+`www.example.com.cert.pem: OK`
