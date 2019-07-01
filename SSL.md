@@ -364,7 +364,7 @@ echo 1000 > serial
 Add a crlnumber file to the intermediate CA directory tree. crlnumber is used to keep track of certificate revocation lists.
 
 ```bash
-echo 1000 > /root/ca/intermediate/crlnumber
+echo 1000 > crlnumber
 ```
 Copy the previous `openssl.conf` configuration file to intermediate/openssl.conf and make these five changes:
 
