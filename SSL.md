@@ -150,7 +150,7 @@ emailAddress                    = Email Address
 countryName_default             = GB
 stateOrProvinceName_default     = England
 localityName_default            =
-0.organizationName_default      = penvpn
+0.organizationName_default      = myorganization
 #organizationalUnitName_default =
 #emailAddress_default           =
 EOF
