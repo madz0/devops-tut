@@ -394,11 +394,10 @@ Create the intermediate certificate
 Use the intermediate key to create a certificate signing request (CSR). 
 The details should generally match the root CA. The Common Name, however, must be different.
 
-Make sure you specify the intermediate CA configuration file (intermediate/openssl.conf).
-----
+* Make sure you specify the intermediate CA configuration file (intermediate/openssl.conf).
 
 ```bash
-openssl req -config intermediate/openssl.conf -new -sha256 -days 6000 -key intermediate/private/intermediate.key.pem -out intermediate/csr/intermediate.csr.pem
+openssl req -config intermediate/openssl.conf -new -sha256 -key intermediate/private/intermediate.key.pem -out intermediate/csr/intermediate.csr.pem
 ```
 
 Enter pass phrase for intermediate.key.pem: secretpassword
@@ -413,15 +412,14 @@ Organizational Unit Name []:Alice Ltd Certificate Authority
 Common Name []:Alice Ltd Intermediate CA
 Email Address []:
 ```
-To create an intermediate certificate, use the root CA with the v3_intermediate_ca extension to sign the intermediate CSR. 
+To create an intermediate certificate, use the root CA with the `v3_intermediate_ca` extension to sign the intermediate CSR. 
 The intermediate certificate should be valid for a shorter period than the root certificate. Ten years would be reasonable.
 
 
-This time, specify the root CA configuration file (openssl.conf).
----
+* This time, specify the root CA configuration file (openssl.conf).
 
 ```bash
-openssl ca -config openssl.conf -extensions v3_intermediate_ca -days 3650 -notext -md sha256 -in -out intermediate/certs/intermediate.cert.pem
+openssl ca -config openssl.conf -extensions v3_intermediate_ca -days 3650 -notext -md sha256 -in intermediate/csr/intermediate.csr.pem -out intermediate/certs/intermediate.cert.pem
 ```
 ```
 Enter pass phrase for ca.key.pem: secretpassword
