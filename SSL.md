@@ -397,7 +397,7 @@ The details should generally match the root CA. The Common Name, however, must b
 *Make sure you specify the intermediate CA configuration file (intermediate/openssl.conf).*
 
 ```bash
-# openssl req -config intermediate/openssl.conf -new -sha256 -key intermediate/private/intermediate.key.pem -out intermediate/csr/intermediate.csr.pem
+# openssl req -config intermediate/openssl.conf -new -sha256 -days 6000 -key intermediate/private/intermediate.key.pem -out intermediate/csr/intermediate.csr.pem
 ```
 
 Enter pass phrase for intermediate.key.pem: secretpassword
