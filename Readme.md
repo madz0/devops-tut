@@ -140,3 +140,8 @@ git diff origin/master..HEAD
 git checkout current
 git diff origin/master -- /path/to/file
 ```
+## Git see commits that are not in the remote branch
+```bash
+git checkout current
+git log origin/master..HEAD
+```
