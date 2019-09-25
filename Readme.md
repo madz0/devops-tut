@@ -129,3 +129,14 @@ git checkout <commit_hash> -- <file>
 ```bash
 git diff path/to/file
 ```
+## Git diff of a remote branch with commits of current branch
+```bash
+git checkout current
+git diff origin/master..HEAD
+```
+
+## Git diff of a remote branch with modified (even not committed) file
+```bash
+git checkout current
+git diff origin/master -- /path/to/file
+```
