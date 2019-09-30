@@ -145,3 +145,13 @@ git diff origin/master -- /path/to/file
 git checkout current
 git log origin/master..HEAD
 ```
+## Git discard merge state before commit.
+If you've issued following commands:
+```bash
+git checkout sombranch
+git pull origin someotherbranch
+```
+Now if you've not committed and decided to discard the merged changes, do:
+```bash
+git reset --hard
+```
