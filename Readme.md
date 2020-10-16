@@ -155,3 +155,7 @@ Now if you've not committed and decided to discard the merged changes, do:
 ```bash
 git reset --hard
 ```
+## Git get remote address
+```bash
+git config --get remote.origin.url
+```
