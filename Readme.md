@@ -159,3 +159,7 @@ git reset --hard
 ```bash
 git config --get remote.origin.url
 ```
+## Maven display plugin dependency tree
+```bash
+mvn dependency:resolve-plugins
+```
